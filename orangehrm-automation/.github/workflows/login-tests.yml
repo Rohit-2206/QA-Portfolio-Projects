@@ -1,0 +1,49 @@
+
+name: OrangeHRM Login Automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  login-tests:
+    name: Run Login Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Login Tests
+        run: npx playwright test login.spec.ts --project=chromium
+
+      - name: Upload Playwright HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-test-results
+          path: test-results/
+          retention-days: 14
