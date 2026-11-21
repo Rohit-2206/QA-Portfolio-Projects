@@ -35,6 +35,9 @@ jobs:
       - name: Run Login Tests
         run: npx playwright test login.spec.ts --project=chromium
         working-directory: orangehrm-automation
+        env:
+          ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
+          ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
 
       - name: Upload HTML Report
         if: always()

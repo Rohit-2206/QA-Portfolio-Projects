@@ -1,9 +1,19 @@
-
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
 
 const loginURL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 const dashboardURL = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+
+// Read valid credentials from environment variables
+const validUsername = process.env.ORANGEHRM_USERNAME;
+const validPassword = process.env.ORANGEHRM_PASSWORD;
+
+// Fail early if credentials are not configured
+if (!validUsername || !validPassword) {
+    throw new Error(
+        "Missing ORANGEHRM_USERNAME or ORANGEHRM_PASSWORD environment variables."
+    );
+}
 
 test.describe("OrangeHRM Login Functionality", () => {
 
@@ -17,7 +27,7 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC01: Valid username and password
     test("TC01 - Verify login with valid credentials", async ({ page }) => {
 
-        await loginPage.login("Admin", "admin123");
+        await loginPage.login(validUsername, validPassword);
 
         await expect(page).toHaveURL(dashboardURL);
         await expect(page.locator("h6")).toContainText("Dashboard");
@@ -26,7 +36,7 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC02: Invalid username
     test("TC02 - Verify login with invalid username", async () => {
 
-        await loginPage.login("WrongUser", "admin123");
+        await loginPage.login("WrongUser", validPassword);
 
         await expect(loginPage.getInvalidCredentialsMessage())
             .toHaveText("Invalid credentials");
@@ -35,7 +45,7 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC03: Invalid password
     test("TC03 - Verify login with invalid password", async () => {
 
-        await loginPage.login("Admin", "WrongPassword");
+        await loginPage.login(validUsername, "WrongPassword");
 
         await expect(loginPage.getInvalidCredentialsMessage())
             .toHaveText("Invalid credentials");
@@ -53,7 +63,7 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC05: Empty username
     test("TC05 - Verify login with empty username", async () => {
 
-        await loginPage.login("", "admin123");
+        await loginPage.login("", validPassword);
 
         await expect(loginPage.getRequiredError()).toHaveCount(1);
     });
@@ -61,7 +71,7 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC06: Empty password
     test("TC06 - Verify login with empty password", async () => {
 
-        await loginPage.login("Admin", "");
+        await loginPage.login(validUsername, "");
 
         await expect(loginPage.getRequiredError()).toHaveCount(1);
     });
@@ -77,21 +87,22 @@ test.describe("OrangeHRM Login Functionality", () => {
     // TC08: Verify password masking
     test("TC08 - Verify password is masked", async () => {
 
-        await loginPage.enterPassword("admin123");
+        await loginPage.enterPassword(validPassword);
 
         await expect(loginPage.getPasswordInput())
             .toHaveAttribute("type", "password");
 
         await expect(loginPage.getPasswordInput())
-            .toHaveValue("admin123");
+            .toHaveValue(validPassword);
     });
 
+    // TC09: Verify login button is enabled and clickable
     test("TC09 - Verify login button is enabled and clickable", async ({ page }) => {
 
         await expect(loginPage.getLoginButton()).toBeVisible();
         await expect(loginPage.getLoginButton()).toBeEnabled();
 
-        await loginPage.login("Admin", "admin123");
+        await loginPage.login(validUsername, validPassword);
 
         await expect(page).toHaveURL(dashboardURL);
     });
