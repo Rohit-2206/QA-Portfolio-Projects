@@ -1,4 +1,5 @@
-SauceDemo UI Automation Framework
+**SauceDemo UI Automation Framework**
+
 An end-to-end web UI automation framework built using Playwright, TypeScript, Playwright MCP, Playwright Test Agents, and GitHub Copilot. This project automates the core shopping workflows of the SauceDemo demo application, including login, product selection, cart management, and checkout.
 The framework follows the Page Object Model (POM) design pattern to promote code reusability, maintainability, and scalability.
 
