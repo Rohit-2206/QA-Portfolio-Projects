@@ -22,22 +22,26 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: orangehrm-automation/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+        working-directory: orangehrm-automation
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
+        working-directory: orangehrm-automation
 
       - name: Run Login Tests
         run: npx playwright test login.spec.ts --project=chromium
+        working-directory: orangehrm-automation
 
-      - name: Upload Playwright HTML Report
+      - name: Upload HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: login-playwright-report
-          path: playwright-report/
+          path: orangehrm-automation/playwright-report/
           retention-days: 14
 
       - name: Upload Test Results
@@ -45,5 +49,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: login-test-results
-          path: test-results/
+          path: orangehrm-automation/test-results/
           retention-days: 14
