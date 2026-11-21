@@ -9,10 +9,10 @@ test('Admin page navigation', async({page})=>{
     await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
     await loginPage.login ('Admin', 'admin123');
 
-    adminPage.openAdminPage();
+    await adminPage.openAdminPage();
     await expect(page).toHaveURL("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers");
 
-    expect (await adminPage.isAdminPageHeading()).toBe(true);
+    await expect(page.locator('h6.oxd-topbar-header-breadcrumb-module')).toHaveText('Admin');
     
 })
 
