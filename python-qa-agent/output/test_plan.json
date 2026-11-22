@@ -1,0 +1,66 @@
+[
+    {
+        "test_id": "TC01",
+        "test_type": "Positive",
+        "description": "User should be able to log in with valid credentials.",
+        "expected_result": "User should be able to log in with valid credentials.",
+        "test_steps": [
+            "Navigate to the login page",
+            "Enter a valid username",
+            "Enter a valid password",
+            "Click the Login button",
+            "Verify that the dashboard is displayed"
+        ]
+    },
+    {
+        "test_id": "TC02",
+        "test_type": "Negative",
+        "description": "User should see an error message when entering an invalid username.",
+        "expected_result": "User should see an error message when entering an invalid username.",
+        "test_steps": [
+            "Navigate to the login page",
+            "Enter an invalid username",
+            "Enter a valid password",
+            "Click the Login button",
+            "Verify that an error message is displayed"
+        ]
+    },
+    {
+        "test_id": "TC03",
+        "test_type": "Negative",
+        "description": "User should see an error message when entering an invalid password.",
+        "expected_result": "User should see an error message when entering an invalid password.",
+        "test_steps": [
+            "Navigate to the login page",
+            "Enter a valid username",
+            "Enter an invalid password",
+            "Click the Login button",
+            "Verify that an error message is displayed"
+        ]
+    },
+    {
+        "test_id": "TC04",
+        "test_type": "Validation",
+        "description": "User should not be able to log in without entering credentials.",
+        "expected_result": "User should not be able to log in without entering credentials.",
+        "test_steps": [
+            "Navigate to the login page",
+            "Leave the username field empty",
+            "Leave the password field empty",
+            "Click the Login button",
+            "Verify that required field validation is displayed"
+        ]
+    },
+    {
+        "test_id": "TC05",
+        "test_type": "Negative",
+        "description": "Locked-out users should not be allowed to log in.",
+        "expected_result": "Locked-out users should not be allowed to log in.",
+        "test_steps": [
+            "Navigate to the login page",
+            "Enter locked-out user credentials",
+            "Click the Login button",
+            "Verify that access is denied"
+        ]
+    }
+]

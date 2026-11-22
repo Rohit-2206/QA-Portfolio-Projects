@@ -1,0 +1,148 @@
+{
+    "test_cases": [
+        {
+            "test_id": "TC_LOGIN_001",
+            "test_type": "Positive",
+            "description": "Log in successfully with a valid username and password.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter a registered valid username.",
+                "Enter the correct password.",
+                "Click the Login button."
+            ],
+            "expected_result": "The user is authenticated and redirected to the dashboard.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_002",
+            "test_type": "Negative",
+            "description": "Attempt to log in with an unregistered or invalid username.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter an unregistered or invalid username.",
+                "Enter a valid password.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and an appropriate invalid-username error message is displayed.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_003",
+            "test_type": "Negative",
+            "description": "Attempt to log in with an incorrect password.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter a registered valid username.",
+                "Enter an incorrect password.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and an appropriate invalid-password error message is displayed.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_004",
+            "test_type": "Validation",
+            "description": "Attempt to log in with both username and password fields empty.",
+            "test_steps": [
+                "Open the login page.",
+                "Leave the username field empty.",
+                "Leave the password field empty.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and validation messages indicate that credentials are required.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_005",
+            "test_type": "Validation",
+            "description": "Attempt to log in with only the username empty.",
+            "test_steps": [
+                "Open the login page.",
+                "Leave the username field empty.",
+                "Enter a valid password.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and a username-required validation message is displayed.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_006",
+            "test_type": "Validation",
+            "description": "Attempt to log in with only the password empty.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter a registered valid username.",
+                "Leave the password field empty.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and a password-required validation message is displayed.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_007",
+            "test_type": "Negative",
+            "description": "Attempt to log in as a locked-out user with otherwise valid credentials.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter the username of a locked-out account.",
+                "Enter that account's correct password.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and a locked-account or account-suspended message is displayed.",
+            "coverage_type": "acceptance_criterion"
+        },
+        {
+            "test_id": "TC_LOGIN_008",
+            "test_type": "Validation",
+            "description": "Verify that whitespace-only credential fields are not accepted.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter only spaces in the username field.",
+                "Enter only spaces in the password field.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and appropriate required-field or invalid-credentials messages are shown.",
+            "coverage_type": "ai_suggested"
+        },
+        {
+            "test_id": "TC_LOGIN_009",
+            "test_type": "Negative",
+            "description": "Attempt to log in with both username and password invalid.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter an unregistered username.",
+                "Enter an incorrect password.",
+                "Click the Login button."
+            ],
+            "expected_result": "Login is denied and a secure generic authentication error is displayed without revealing whether the username or password was invalid.",
+            "coverage_type": "ai_suggested"
+        },
+        {
+            "test_id": "TC_LOGIN_010",
+            "test_type": "Functional",
+            "description": "Verify credentials are handled safely after a failed login attempt.",
+            "test_steps": [
+                "Open the login page.",
+                "Enter a registered username and incorrect password.",
+                "Submit the login attempt.",
+                "Clear the password field.",
+                "Enter the correct password.",
+                "Click the Login button."
+            ],
+            "expected_result": "The corrected credentials authenticate successfully, and the user is redirected to the dashboard.",
+            "coverage_type": "ai_suggested"
+        },
+        {
+            "test_id": "TC_LOGIN_011",
+            "test_type": "Functional",
+            "description": "Verify that navigating back after a successful login does not expose the login session improperly.",
+            "test_steps": [
+                "Log in with valid credentials.",
+                "Navigate to the dashboard.",
+                "Use the browser Back button to return to the login page."
+            ],
+            "expected_result": "The application does not present an exposed unauthenticated login state; the user is redirected appropriately or the login page remains secure according to session policy.",
+            "coverage_type": "ai_suggested"
+        }
+    ]
+}
